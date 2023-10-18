@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     // Build your Docker image
-                    sh 'docker build -t Vidyadhar7/e-commerceapp_web:latest .'
+                    sh 'docker build -t vidyadhar7/e-commerceapp_web:latest .'
                 }
             }
         }
