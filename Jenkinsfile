@@ -16,9 +16,10 @@ pipeline {
         }
 
         stage('PUSH image to Docker Hub') {
-    withCredentials([usernamePassword(credentialsId: 'DockerHubPassword', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-        sh "docker login -u $USERNAME -p $PASSWORD"
-        sh "docker push vidyadhar7/e-commerce:latest"
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'DockerHubPassword', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh "docker login -u $USERNAME -p $PASSWORD"
+                    sh "docker push vidyadhar7/e-commerce:latest"
                 }
             }
         }
