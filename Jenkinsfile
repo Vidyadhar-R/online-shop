@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     // Build your Docker image
-                    sh 'docker build -t e-commerceapp_web .'
+                    sh 'docker build -t Vidyadhar7/e-commerceapp_web:latest .'
                 }
             }
         }
@@ -32,7 +32,7 @@ pipeline {
                         sh "docker login -u Vidyadhar7 -p ${DHPWD}"
 
                         // Push the Docker image to Docker Hub
-                        sh 'docker push Vidyadhar7/e-commerce:latest'
+                        sh 'docker push Vidyadhar7/e-commerceapp_web:latest'
                     }
                 }
             }
