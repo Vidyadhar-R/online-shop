@@ -14,16 +14,7 @@ pipeline {
                 sh 'docker-compose up -d'
             }
         }
-
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    // Build your Docker image
-                    sh 'docker build -t vidyadhar7/e-commerceapp_web:latest .'
-                }
-            }
-        }
-
+        
         stage('Push to Docker Hub') {
             steps {
                 script {
