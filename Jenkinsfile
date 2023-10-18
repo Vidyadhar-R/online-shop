@@ -14,16 +14,21 @@ pipeline {
                 sh 'docker-compose up -d'
             }
         }
-        
-        stage('Push to Docker Hub') {
+
+        stage('Build and Push Docker Image') {
+            environment {
+                DOCKER_IMAGE = "vidyadhar7/e-commerceapp_web:${BUILD_NUMBER}"
+                DOCKERFILE_LOCATION = "php/online-shopping-system/Dockerfile"
+                REGISTRY_CREDENTIALS = credentials('dockerhub')
+            }
             steps {
                 script {
-                    // Login to Docker Hub
-                    withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DHPWD')]) {
-                        sh "docker login -u Vidyadhar7 -p ${DHPWD}"
-
-                        // Push the Docker image to Docker Hub
-                        sh 'docker push Vidyadhar7/e-commerceapp_web:latest'
+                    dir('online-shop') {
+                        // Navigate to the online-shop directory
+                        sh "docker build --no-cache -t ${DOCKER_IMAGE} -f ${DOCKERFILE_LOCATION} ."
+                    }
+                    docker.withRegistry('https://index.docker.io/v1/', "dockerhub") {
+                        dockerImage.push()
                     }
                 }
             }
