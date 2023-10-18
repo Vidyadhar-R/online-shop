@@ -18,14 +18,14 @@ pipeline {
         stage('Build and Push Docker Image') {
             environment {
                 DOCKER_IMAGE = "vidyadhar7/e-commerceapp_web:${BUILD_NUMBER}"
-                DOCKERFILE_LOCATION = "php/online-shopping-system/Dockerfile"
+                // DOCKERFILE_LOCATION = "php/online-shopping-system/Dockerfile"
                 REGISTRY_CREDENTIALS = credentials('dockerhub')
             }
             steps {
                 script {
                     dir('online-shop') {
                         // Navigate to the online-shop directory
-                        sh "docker build --no-cache -t ${DOCKER_IMAGE} -f ${DOCKERFILE_LOCATION} ."
+                        sh "docker build --no-cache -t ${DOCKER_IMAGE} ."
                     }
                     docker.withRegistry('https://index.docker.io/v1/', "dockerhub") {
                         dockerImage.push()
