@@ -24,6 +24,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', "dockerhub") {
+                        dockerImage = docker.image("vidyadhar7/e-commerceapp_web:latest")
+                        dockerImage.tag("${DOCKER_IMAGE}")
                         dockerImage.push()
                     }
                 }
